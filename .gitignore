@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Generated data (regeneratable via the scripts — don't bloat git history;
+# keep a small sample committed if you want reviewers to see the shape)
+data/raw/*.jsonl
+data/processed/*.jsonl
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Model artifacts — large binary files, use Git LFS or the Hugging Face
+# Hub instead of committing these directly
+training/checkpoints/
+inference/*.gguf
+*.safetensors
+*.bin
+
+# Environment
+.env

@@ -1,0 +1,15 @@
+# Keep this in its own venv — separate from SmartServe's Python services.
+# GPU + CUDA required. See https://github.com/unslothai/unsloth for the
+# latest install instructions if this pinned combo doesn't match your CUDA
+# version.
+
+torch>=2.2
+unsloth
+trl
+transformers>=4.44
+datasets
+peft
+bitsandbytes
+accelerate
+pyyaml
+anthropic
