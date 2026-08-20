@@ -15,6 +15,8 @@ data/processed/*.jsonl
 # Hub instead of committing these directly
 training/checkpoints/
 inference/*.gguf
+inference_gguf/
+unsloth_compiled_cache/
 *.safetensors
 *.bin
 
