@@ -83,6 +83,16 @@ INTENTS: dict[str, IntentSpec] = {
 
 INTENT_NAMES: tuple[str, ...] = tuple(INTENTS.keys())
 
+# Language mode tag attached to every generated example (see data/generate_dataset.py)
+# so accuracy can be sliced per-language at evaluation time. SmartServe's primary
+# market is Israel, where Hebrew is the default day-to-day language and managers
+# routinely code-switch mid-sentence — "mixed" captures that, not just a stray
+# leftover English word.
+#   he:    pure Hebrew
+#   en:    pure English
+#   mixed: code-switched Hebrew/English in the same message
+LANGUAGE_MODES: tuple[str, ...] = ("he", "en", "mixed")
+
 # The exact JSON shape the model is trained to produce. Keep this in sync
 # with whatever your Haiku classifier in services/ai returns, so swapping
 # tiers doesn't require changing the confirm/dispatch code downstream.

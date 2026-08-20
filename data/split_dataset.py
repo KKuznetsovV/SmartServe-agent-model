@@ -21,7 +21,13 @@ from common.schema import OUTPUT_SCHEMA_DESCRIPTION  # noqa: E402
 def format_example(raw: dict) -> dict:
     """Convert a raw {message, label} record into an instruction-tuning
     {instruction, input, output} record, in the same shape Unsloth's
-    training script expects (see training/train.py)."""
+    training script expects (see training/train.py).
+
+    `language_mode` is carried through as extra metadata (not part of the
+    instruction/input/output the model trains on) so evaluation/evaluate.py
+    can slice accuracy by language later — training/train.py's dataset.map
+    call ignores columns it doesn't reference, so this doesn't affect
+    fine-tuning."""
     return {
         "instruction": (
             "You classify a restaurant manager's message into a structured "
@@ -29,6 +35,10 @@ def format_example(raw: dict) -> dict:
         ),
         "input": raw["message"],
         "output": json.dumps(raw["label"], ensure_ascii=False),
+        # "unknown" for examples.jsonl files generated before language_mode
+        # existed — evaluate.py handles that as its own bucket rather than
+        # silently mislabeling old data as one language or another.
+        "language_mode": raw.get("language_mode", "unknown"),
     }
 
 
